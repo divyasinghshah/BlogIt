@@ -13,7 +13,8 @@ const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
 const expressLayouts=require('express-ejs-layouts');
 const MongoStore=require('connect-mongo');
-
+const flash=require('connect-flash');
+const customMiddleware=require('./config/middleware');
 app.use(cookieParser());
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
@@ -30,10 +31,17 @@ app.use(session({
     store:MongoStore.create({ mongoUrl: 'mongodb://localhost/blog-db' })
 
 }));
+
+
+
+
 app.use(express.urlencoded());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
+
+app.use(flash());
+app.use(customMiddleware.setFlash);
 
 app.listen(8000,function(err){
     if(err){

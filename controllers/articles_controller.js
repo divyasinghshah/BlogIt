@@ -31,10 +31,12 @@ module.exports.create= async function(req,res){
             user:req.user._id
         });
         console.log("Success");
-        return res.redirect('back');
+        req.flash('success','New Blog Created Successfully!!');
+        return res.redirect('/');
     }
     catch(err){
         console.log(err);
+        req.flash('error','Some Error occurred!!');
         return res.redirect('back');
 
     }
@@ -60,9 +62,11 @@ module.exports.delete= async function(req,res){
     
         if(article.user==req.user.id){
             article.remove();
+            req.flash('success','Blog Deleted Successfully!!');
             return res.redirect('back');
     
         }else{
+            req.flash('error','Wrong User!!');
             return res.redirect('back');
         }
 

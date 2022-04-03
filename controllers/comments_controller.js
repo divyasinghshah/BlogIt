@@ -33,6 +33,7 @@ module.exports.create= async function(req,res){
             });
             article.comments.push(comment);
             article.save();
+            req.flash('success','New Comment Added');
             res.redirect('back');
         }
 
@@ -63,6 +64,7 @@ module.exports.delete= async function(req,res){
             let articleId=comment.article;
             comment.remove();
             let article= await Article.findByIdAndUpdate(articleId,{$pull:{comments:req.params.id}});
+            req.flash('success','Comment Deleted');
             return res.redirect('back');
         }
 

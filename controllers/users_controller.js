@@ -10,6 +10,7 @@ module.exports.signUp=function(req,res){
 
 module.exports.signOut=function(req,res){
     req.logout();
+    req.flash('success','You have been logged out');
     return res.redirect('back');
 
 
@@ -17,6 +18,7 @@ module.exports.signOut=function(req,res){
 
 module.exports.create=function(req,res){
     if(req.body.password!=req.body.confirmPassword){
+        req.flash('error','Passwords do not match');
         return res.redirect('back');
     }
 
@@ -27,15 +29,17 @@ module.exports.create=function(req,res){
         }
 
         if(user){
-            return res.render('signIn');
+            req.flash('error','User with this email already exists!!');
+            return res.redirect('/user/sign-in');
+            
         }
         User.create(req.body,function(err,user){
             if(err){
-                console.log(err);
+                req.flash('error',err);
                 return res.redirect('back');
             }
-
-            return res.render('signIn');
+            req.flash('success','New User Created!!');
+            return res.redirect('/user/sign-in');
         });
     });
 
@@ -44,6 +48,8 @@ module.exports.create=function(req,res){
 
 
 module.exports.createSession=function(req,res){
+
+    req.flash('success','Logged in Successfully');
     return res.redirect('/');
 }
 
