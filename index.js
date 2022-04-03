@@ -15,6 +15,7 @@ const expressLayouts=require('express-ejs-layouts');
 const MongoStore=require('connect-mongo');
 const flash=require('connect-flash');
 const customMiddleware=require('./config/middleware');
+const passportGoogle=require('./config/passport-google-oauth2-strategy');
 app.use(cookieParser());
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
