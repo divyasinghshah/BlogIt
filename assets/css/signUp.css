@@ -1,0 +1,16 @@
+
+.outer-div{
+    
+    display: flex;
+    justify-content: center;
+    color:white;
+    
+}
+.inner-div{
+    padding:40px;
+    margin: 50px;
+    min-width: 500px;
+    border:1px solid white;
+    
+}
+

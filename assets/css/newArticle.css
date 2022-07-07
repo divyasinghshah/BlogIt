@@ -1,0 +1,20 @@
+
+.outer-div{
+    
+    display: flex;
+    justify-content: center;
+    color:white;
+    
+}
+.inner-div{
+    padding:40px;
+    margin: 50px;
+    min-width: 800px;
+    border:1px solid white;
+    
+}
+#submit-btn{
+    float: right;
+    margin-right: 50px;
+}
+

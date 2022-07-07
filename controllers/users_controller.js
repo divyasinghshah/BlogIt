@@ -2,10 +2,22 @@ const User=require('../models/users');
 
 
 module.exports.signIn=function(req,res){
-    res.render('signIn');
+    if(req.isAuthenticated()){
+        return res.redirect('/user/profile');
+    }
+    else{
+        return res.render('signIn');
+    }
+    
 }
 module.exports.signUp=function(req,res){
-    res.render('signUp');
+    if(req.isAuthenticated()){
+        return res.redirect('/user/profile');
+    }
+    else{
+        return res.render('signUp');
+    }
+   
 }
 
 module.exports.signOut=function(req,res){
@@ -16,6 +28,7 @@ module.exports.signOut=function(req,res){
 
 }
 
+//after sign Up page
 module.exports.create=function(req,res){
     if(req.body.password!=req.body.confirmPassword){
         req.flash('error','Passwords do not match');
@@ -46,15 +59,26 @@ module.exports.create=function(req,res){
 }
 
 
-
+//after signIn page
 module.exports.createSession=function(req,res){
-
     req.flash('success','Logged in Successfully');
     return res.redirect('/');
 }
 
 module.exports.profile=function(req,res){
     return res.render('profile');
+}
+
+module.exports.update=function(req,res){
+    if(req.user.id==req.params.id){
+        User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
+            req.flash('success','Updated');
+            return res.redirect('back');
+        })
+    }else{
+        req.flash('error','Unauthorized Access');
+        return res.status(401).send('Unauthorized');
+    }
 }
 
 
