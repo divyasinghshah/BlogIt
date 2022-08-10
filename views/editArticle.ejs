@@ -3,28 +3,27 @@
 
 <div class="outer-div">
   <div class="inner-div">
-    <h2 class="display-6 p-2">Create A BLog</h2>
-    <form method="POST" action="/article/create-article">
+    <h2 class="display-6 p-2">Edit The BLog</h2>
+    <form method="POST" action="/article/edit-article/<%= article._id %>">
       <div class="row mb-3">
         <label for="title" class="col-sm-2 col-form-label display-1">Title</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="title" name="title" >
+          <input type="text" class="form-control" id="title" name="title" value="<%=article.title%>" >
         </div>
       </div>
       <div class="row mb-3">
         <label for="description" class="col-sm-2 col-form-label display-1">Description</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="description" name="description">
+          <input type="text" class="form-control" id="description" name="description" value="<%=article.description%>">
         </div>
       </div>
       <div class="row mb-3">
         <label for="content" class="col-sm-2 col-form-label display-1" >Content</label>
         <div class="col-sm-10">
-          <textarea name="content" id="content" cols="70" rows="10" >
-                </textarea>
+          <textarea name="content" id="content" cols="70" rows="10"><%=article.content%></textarea>
         </div>
       </div>
-      <button class="btn btn-success" id="submit-btn" type="submit">POST</button>
+      <button class="btn btn-success" id="submit-btn" type="submit">Edit</button>
       
 
 

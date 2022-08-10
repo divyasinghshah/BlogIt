@@ -30,9 +30,14 @@
 
                   <% if(locals.user && locals.user.id==article.user?._id){ %>
                     <span style="float: right">
+                      <a href="/article/edit/<%= article._id %>">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                      </a>
                       <a href="/article/destroy/<%= article._id %>" style="color:red" class="m-2">
                         <i class="far fa-trash-alt"></i>
                       </a>
+                      
+                     
                      </span>
 
 

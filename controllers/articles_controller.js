@@ -55,28 +55,7 @@ module.exports.delete= async function(req,res){
 
 }
 
-module.exports.update= async function(req,res){
-    try{
-        let article= await Article.findById(req.params.id);
-    
-        if(article.user==req.user.id){
-            return res.render('newArticle',{
-                article:article
-            });
-    
-        }else{
-            req.flash('error','Wrong User!!');
-            return res.redirect('back');
-        }
 
-    }
-    catch(err){
-        console.log(err);
-        return;
-    }
-   
-
-}
 
 
 
@@ -101,3 +80,39 @@ module.exports.show= async function(req,res){
 
     
 }
+
+module.exports.edit=async function(req,res){
+    try{
+        let article=await Article.findById(req.params.id);
+        console.log(article);
+        return res.render('editArticle',{
+            article:article
+        });
+
+    }catch(err){
+        console.log(err);
+        return res.redirect('back');
+    }
+}
+module.exports.update=async function(req,res){
+    try{
+        let article=await Article.findByIdAndUpdate(req.params.id,{
+            title:req.body.title,
+            description:req.body.description,
+            content:req.body.content
+        });
+         article=await Article.find({}).populate('user').exec();
+        
+        return res.render('home',{
+            articles:article,
+            title:"Divya"
+        });
+
+    }catch(err){
+        console.log(err);
+        return res.redirect('back');
+    }
+}
+
+
+
